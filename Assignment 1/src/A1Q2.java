@@ -32,16 +32,14 @@ public class A1Q2 {  // begin class
         
     // ********** declaration of variables **********
         
-        String delim = "";
-        int ranNum = 0;
+        String delim = " ";
         int array[] = new int[MAXLIST];
     	
     // create instances of objects for i/o and formatting
     
-    	
+    	BufferedReader fin = new BufferedReader(new FileReader("textOut.txt"));
     	PrintWriter fout = new PrintWriter(new BufferedWriter(new FileWriter("Outa1.txt")));
         ProgramInfo programinfo = new ProgramInfo("A1 " + "Q2");
-        Random rand = new Random();
     	
     // ********** Print output Banner **********
     
@@ -50,19 +48,18 @@ public class A1Q2 {  // begin class
  	    	
     // ************************ get input **********************
 
-    	
+    	for (int n = 0; n < MAXLIST; n++) {
+            
+        }
 
     // ************************ processing ***************************
     
-        for (int n = 0; n < MAXLIST; n++) {
-             ranNum = rand.nextInt(MAX - MIN) + MIN; //generate random ints
-             array[n] = ranNum;
-        } //end for loop for generating numbers
+        
     
     // ************************ print output ****************************
 
-        fileList(array, MAXLIST, fout);
-        printList(array, MAXLIST, fout);
+        //fileList(array, MAXLIST, fout);
+        //printList(array, MAXLIST, fout);
     
     // ******** closing message *********
         
