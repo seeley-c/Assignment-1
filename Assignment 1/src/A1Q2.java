@@ -5,11 +5,13 @@
  * Assignment: Assignment 1 Question 2
  * Program Name:  A1Q2.java
  *
- * Description: 
+ * Description: Reads values from text file generated in question 1, 
+ *              checks the frequency of each number, and
+ *              allows you to check the frequency of each number
  *
- * Input: 
+ * Input:       text file generated in last question
  *
- * Output: 
+ * Output:      allows user to check the frequency of each number
  ***********************************************************************/
  
  // import java libraries here as needed
@@ -26,28 +28,32 @@ public class A1Q2 {  // begin class
     
     // ********* declaration of constants **********
         
-        final int MAXLIST = 1000;
-        final int MAX = 101;
-        final int SenVal = -1;
-        final String stringSenVal = "-1";
+        final int MAXLIST = 1000;           //max size of arrays
+        final int MAX = 100;                //max size for generated values
+        final int SenVal = -1;              //sentinel value integer form
+        final String stringSenVal = "-1";   //sentinel value string form
+        final int NumPerLine = 5;           //numbers per line for input
+        final int offSet = 1;               //offset between array and numbers
         
     // ********** declaration of variables **********
         
-        String delim = "[ ]+";
-        int array[] = new int[MAXLIST];
-        String strin = "";
-        String input1[] = null;
-        int count = 0;
-        int num = 0;
-        int freq[] = new int[MAX];
+        String delim = "[ ]+";          //delim for reading in values
+        int array[] = new int[MAXLIST]; //array for input
+        String strin = "";              //string for reading in line of values
+        String input1[] = null;         //string for splitting input
+        int count = 0;                  //int for loading input into array
+        int num = 0;                    //int for checking frequency of values
+        int freq[] = new int[MAX];      //array for storing frequency of values
         
-        String delim2 = "[-]+";
-        int inLeng = 0;
-        int inSingleNum = 0;
-        String inMultNum = "";
-        String tokens[] = null;
-        int n1 = 0;
-        int n2 = 0;
+        String delim2 = "[-]+";         //delim for checking frequency of values
+        int inSingleNum = 0;            
+            //int for checking frequency of single values
+        String inMultNum = "";          
+            //string for checking frequency of multiple values
+        String tokens[] = null;     
+            //string for splitting values to check frequency
+        int n1 = 0; //first int for checking frequency of multiple numbers
+        int n2 = 0; //second int for checking frequency of multiple numbers
         
         
     	
@@ -59,98 +65,92 @@ public class A1Q2 {  // begin class
     	
     // ********** Print output Banner **********
     
-    	System.out.println(programinfo.toString());
-        fout.println(programinfo.toString());
+    	System.out.println(programinfo.toString()); //output program info
+        fout.println(programinfo.toString());       //output program info
  	    	
     // ************************ get input **********************
     
-        strin = fin.readLine();
-        count = 0;
+        strin = fin.readLine();     //read in first line
+        count = 0;                  //set counter to 0
         
-    	while (strin != null) {
-            input1 = strin.split(delim);
-            System.out.println(strin + "\n");
+    	while (strin != null) {         //while loop for inputting data
+            input1 = strin.split(delim);    //split input line
+            //System.out.println(strin + "\n");
             
-            for (int n = 0; n< 5; n++) {
-                array[count] = Integer.parseInt(input1[n]);
-                //System.out.println("Number " + count + " is generated " + array[count] + " times\n");
+            for (int n = 0; n< NumPerLine; n++) {   //loop for parsing data
+                array[count] = Integer.parseInt(input1[n]); //parse data
                 
-                count++;
+                count++;    //add one to counter for array
             }//end for loop
             
-            strin = fin.readLine();
+            strin = fin.readLine(); //read in next line
         }//end while loop
         
         
     // ************************ processing ***************************
     
-        
     
-        for (num = 1; num < MAX ; num++) {
-        for (int n = 0; n < MAXLIST; n++) {
+        for (num = 0; num < MAX; num++) {   //loop for checking frequency of numbers
+            //loop for checking frequency of numbers
+        for (int n = 0; n < MAXLIST; n++) {             
             
-            
-            if (array[n] == num) {
-                freq[num]++;
-                
-                //System.out.println(freq[num]);
+            if (array[n] == (num + offSet)) { //if values are equal
+                freq[num]++;    //adds one to frequency
             }//end if statement
-            //System.out.println(freq[num]);
-            
-            
         }//end for loop
-        //System.out.println(freq[num]);
-        System.out.println("Number " + num + " is generated " + freq[num] + " times\n");
+        //System.out.println("Number " + num + " is generated " + freq[num] + " times\n");
         }//end for loop
         
         
         
         
         while (!(inSingleNum == SenVal || inMultNum.equals(stringSenVal))) {
+                //while loop for checking frequency
             
-            try {
+            try {   
             inSingleNum = Integer.parseInt(JOptionPane.showInputDialog(
             "Enter the number that you would like to see the frequency of "
-                    + " or -1 to end"));
+                    + " or -1 to end")); //input single number frequency
             
-            if (inSingleNum != SenVal) {
+            if (inSingleNum != SenVal) {  //if not sentinel value
                 System.out.println("The frequency of " + inSingleNum + " is "  
-                    + freq[inSingleNum]);
-            }
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+                    + freq[inSingleNum-offSet]); //output frequency
+            }//end if
+            }//end try
+            catch (ArrayIndexOutOfBoundsException e) {  //catch value error
                 System.out.println(
                         "Please enter a single number, between 1-100");
-            }
-            catch (NumberFormatException i) {
+            }//end catch 1
+            catch (NumberFormatException i) { //catch value type error
                 System.out.println(
                         "Please enter a single number, between 1-100");
-            }
+            }//end catch 2
             
             try {
             inMultNum = JOptionPane.showInputDialog(
             "Enter the numbers that you would like to see the frequency of "
-                    + "(ex: 10-20), or -1 to end");
+                    + "(ex: 10-20), or -1 to end"); 
+                //input for multiple number frequency
             
-            if (!(inMultNum.equals(stringSenVal))) {
-            tokens = inMultNum.split(delim2);
-            n1 = Integer.parseInt(tokens[0]);
-            n2 = Integer.parseInt(tokens[1]);
+            if (!(inMultNum.equals(stringSenVal))) { //if not sentinel value
+            tokens = inMultNum.split(delim2);   //split input
+            n1 = Integer.parseInt(tokens[0]);   //parse first number
+            n2 = Integer.parseInt(tokens[1]);   //parse second number
             
-            for (int n = n1; n <= n2; n++) {
+            for (int n = n1; n <= n2; n++) {  //loop for outputting frequency
                 System.out.println("The frequency of " + n + " is "  
-                   + freq[n]);
-            }
-            }
+                   + freq[n-offSet]);  //output frequency of number
+            }//end for loop
+            }//end if
             }//end try
-            catch (ArrayIndexOutOfBoundsException e) {
+            catch (ArrayIndexOutOfBoundsException e) { //catch value error
                 System.out.println(
                         "Enter two numbers between 1-100, seperated by '-'");
-            }
-            catch (NumberFormatException i) {
+            }//end catch
+            catch (NumberFormatException i) {   //catch value type error
                 System.out.println(
                         "Enter two numbers between 1-100, seperated by '-'");
-            }
+            }//end catch
             
             
         }//end while loop
@@ -163,8 +163,8 @@ public class A1Q2 {  // begin class
     
     // ******** closing message *********
         
-        //System.out.println(programinfo.eoFile);
-        //fout.println(programinfo.eoFile);
+        System.out.println(programinfo.eoFile()); //output end of file message
+        fout.println(programinfo.eoFile());       //output end of file message
         
     // ***** close streams *****
         
